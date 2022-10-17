@@ -1,31 +1,23 @@
-# e2e-testing-with-Cypress
-End-to-End testing with Cypress tutorial app.
+Continuous Integration and Deployment of Web Apps to Docker Hub Using CircleCI 
 
 ## Set Up
 
 ### Clone repo
 ```bash
-git clone https://github.com/Dev-Elie/e2e-testing-with-Cypress.git
+git clone https://github.com/Dev-Elie/deployments-to-dockerhub-CircleCI.git contact-form
 ```
 
 ### Install packages & start services
-> Backend
 
 ```bash
-cd api
+cd contact-form
 npm install
 npm start
 ```
-Navigate back to root.
+### Running tests
 
-```
-cd ..
-```
-> Frontend
 ```bash
-cd frontend
-npm install
-npm start
+npx cypress run --headless
 ```
 
-Have fun! 🙂 
+Happy Deployment!
