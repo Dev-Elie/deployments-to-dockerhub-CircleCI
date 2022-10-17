@@ -1,4 +1,4 @@
-Continuous Integration and Deployment of Web Apps to Docker Hub Using CircleCI 
+## Continuous Integration and Deployment of Web Apps to Docker Hub Using CircleCI 
 
 ## Set Up
 
