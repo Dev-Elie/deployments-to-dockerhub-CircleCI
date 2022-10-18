@@ -5,7 +5,7 @@ orbs: # An orb is a reusable package of CircleCI configuration that you may shar
 jobs:
   deploy: # This is the job that will deploy the app to Docker Hub
     docker: # Use the Docker executor
-      - image: circleci/buildpack-deps:stretch # 
+      - image: cimg/base:2022.09
     steps:
       - checkout # Check out the code in the project directory
       - setup_remote_docker: # Set up the remote Docker environment
@@ -24,7 +24,6 @@ workflows: # This is the workflow that will run the build and deploy jobs
           start: npm start # Start the app
           wait-on: 'http://localhost:3000' # Wait for the app to start
           command: npx cypress run --headless # Run Cypress tests
-
       - deploy:
           requires: # CircleCI will only run the deploy job if the build job succeeds
             - cypress/run
