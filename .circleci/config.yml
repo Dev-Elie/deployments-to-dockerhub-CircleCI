@@ -3,13 +3,6 @@ orbs: # An orb is a reusable package of CircleCI configuration that you may shar
 # enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
   cypress: cypress-io/cypress@1 # This is the orb for Cypress
 jobs:
-  build:
-    jobs:
-      - cypress/run:
-          start: npm start
-          wait-on: 'http://localhost:3000'
-          command: npx cypress run --headless          
-
   deploy: # This is the job that will deploy the app to Docker Hub
     docker: # Use the Docker executor
       - image: circleci/buildpack-deps:stretch # 
@@ -23,27 +16,15 @@ jobs:
             docker build -t $DOCKER_HUB_USER_ID/$IMAGE_NAME:latest . 
             echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USER_ID" --password-stdin
             docker push $DOCKER_HUB_USER_ID/$IMAGE_NAME:latest
-# This is the workflow that will run the build and deploy jobs
-workflows:
-  build-deploy:
-    jobs:
-    # To deploy, we need to build first. Build failures will prevent deployment.
-      - build
+
+workflows: # This is the workflow that will run the build and deploy jobs
+  build: # This is the job that will deploy the app to Docker Hub
+    jobs: # Use the Docker executor
+      - cypress/run: # Cypress orb job
+          start: npm start # Start the app
+          wait-on: 'http://localhost:3000' # Wait for the app to start
+          command: npx cypress run --headless # Run Cypress tests
+
       - deploy:
           requires: # CircleCI will only run the deploy job if the build job succeeds
-            - build
-
-
-
-
-
-# version: 2.1 # Use 2.1 to make use of orbs and other features
-# orbs: # An orb is a reusable package of CircleCI configuration that you may share
-#   cypress: cypress-io/cypress@1 # This is the orb for Cypress
-# workflows: # This is the workflow that will run the build and deploy jobs
-#   build: # This is the job that will deploy the app to Docker Hub
-#     jobs: # Use the Docker executor
-#       - cypress/run: # Cypress orb job
-#           start: npm start # Start the app
-#           wait-on: 'http://localhost:3000' # Wait for the app to start
-#           command: npx cypress run --headless # Run Cypress tests
+            - cypress/run
