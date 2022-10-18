@@ -1,3 +1,5 @@
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/ondiek-elijah/deployments-to-dockerhub-CircleCI/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/ondiek-elijah/deployments-to-dockerhub-CircleCI/tree/main)
+
 ## Set Up
 
 ### Clone repo
