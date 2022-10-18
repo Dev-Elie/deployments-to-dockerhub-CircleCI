@@ -28,3 +28,7 @@ workflows: # This is the workflow that will run the build and deploy jobs
       - deploy:
           requires: # CircleCI will only run the deploy job if the build job succeeds
             - cypress/run
+
+
+
+# Command to build and tag a Docker image
