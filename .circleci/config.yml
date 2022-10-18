@@ -1,0 +1,46 @@
+# version: 2.1 # Use 2.1 to make use of orbs and other features
+# orbs: # An orb is a reusable package of CircleCI configuration that you may share 
+# # across projects, enabling you to create encapsulated, parameterized commands, jobs, and
+# # executors that can be used across multiple projects.
+#   cypress: cypress-io/cypress@1 # This is the orb for Cypress
+# jobs:
+#   build: # This is the job that will run the Cypress tests
+#     jobs:
+#       - cypress/run: # Run the cypress/run job from the cypress orb
+#           command: npx cypress run --headless --component # Run the cypress run command in headless mode
+
+#   deploy: # This is the job that will deploy the app to Docker Hub
+#     docker: # Use the Docker executor
+#       - image: circleci/buildpack-deps:stretch # 
+#     steps:
+#       - checkout # Check out the code in the project directory
+#       - setup_remote_docker: # Set up the remote Docker environment
+#           version: 19.03.13
+#       - run:
+#           name: Build, tag and push to Docker Hub
+#           command: |
+#             docker build -t $DOCKER_HUB_USER_ID/$IMAGE_NAME:latest . 
+#             echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USER_ID" --password-stdin
+#             docker push $DOCKER_HUB_USER_ID/$IMAGE_NAME:latest
+# # This is the workflow that will run the build and deploy jobs
+# workflows:
+#   build-deploy:
+#     jobs:
+#     # To deploy, we need to build first. Build failures will prevent deployment.
+#       - build
+#       - deploy:
+#           requires: # CircleCI will only run the deploy job if the build job succeeds
+#             - build
+
+
+
+version: 2.1 # Use 2.1 to make use of orbs and other features
+orbs: # An orb is a reusable package of CircleCI configuration that you may share 
+# across projects, enabling you to create encapsulated, parameterized commands, jobs, and
+# executors that can be used across multiple projects.
+  cypress: cypress-io/cypress@1 
+workflows: # Workflows are a declarative way to orchestrate jobs and their run order.
+  build: 
+    jobs:
+      - cypress/run: # Run the cypress/run job from the cypress orb
+          command: npx cypress run --headless --component # Run the cypress run command in headless mode
