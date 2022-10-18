@@ -20,4 +20,4 @@ npm start
 npx cypress run --headless
 ```
 
-Happy Deployment!
+Happy automation!
